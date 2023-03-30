@@ -8,6 +8,7 @@ const app = express();
 const PORT = process.env.PORT;
 
 const userRoutes = require('./routes/user')
+const adminRoutes = require('./routes/admin')
 
 
 app.use(bodyParser.json())
@@ -17,6 +18,7 @@ app.get('/home', (req, res, next) => {
 });
 
 app.use('/user', userRoutes);
+app.use('/admin', adminRoutes);
 
 
 app.use((error, req, res, next) => {

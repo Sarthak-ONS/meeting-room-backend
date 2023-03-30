@@ -36,29 +36,39 @@ const abc = async () => {
     }
 }
 
+const sendMeetingRoomData = () => {
+    while (true) {
+        setTimeout(3000, () => { 
+
+        })
+    }
+}
+
 exports.unlockDoor = (req, res, next) => {
     console.log(req.body);
-
     // TODO : Below URL has to be replaced by Arduino Server URL;
-    axios.get('https://jsonplaceholder.typicode.com/posts/')
+    axios.post('http://192.168.1.6:5000/unlockDoor', {
+        "user_id": "fsdsadfei2378boifbwuef",
+        "meeting_id": "sfsuliblsiub23buiqeq",
+        "door_id": "dasdakdbdiua2387gbffbsj",
+        "unlockedAt": `${new Date().toISOString()}`,
+        "meeting_objective": "Farewell Party for FInal years",
+        "user": {
+            "user_name": "Sarthak Agarwal",
+            "user_email": "agarwalsarthak456@gmail.com"
+        }
+    })
         .then(result => {
             console.log(result.data);
+            res.status(200).json({ message: 'Door Unlocked!' });
         })
         .catch(err => {
             next(err);
         });
 
-    res.status(200).json({ message: 'Door Unlocked!' });
 };
 
 
-exports.postDanger = (req, res, next) => {
-    if (!req.body) {
-        res.status(500).json({ message: 'No data found' });
-    }
-    console.log(req.body);
-    res.status(201).json({ message: 'Danger has been acknowledge.' })
-};
 
 
 exports.sendEmail = (req, res, next) => {
@@ -72,13 +82,12 @@ exports.sendEmail = (req, res, next) => {
         `
     })
         .then(result => {
-            console.log(result , "////////////");
+            console.log(result, "////////////");
             res.status(200).json({ message: 'Email Sent Successfully.' });
         })
         .catch(err => {
             console.log(err);
             next(err);
         });
-
 
 }
