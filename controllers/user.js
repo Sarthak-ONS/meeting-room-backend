@@ -1,6 +1,17 @@
 const { initializeApp } = require('firebase/app');
 const { getFirestore, collection, getDocs } = require('firebase/firestore');
 const axios = require('axios');
+const nodemailer = require('nodemailer');
+const sendgridTransport = require('nodemailer-sendgrid-transport');
+
+const transporter = nodemailer.createTransport(
+    sendgridTransport({
+        auth: {
+            api_key:
+                process.env.SENDGRID_API_KEY
+        }
+    })
+);
 
 const firebaseConfig = {
     apiKey: `${process.env.FIREBASE_API_KEY}`,
@@ -45,7 +56,29 @@ exports.postDanger = (req, res, next) => {
     if (!req.body) {
         res.status(500).json({ message: 'No data found' });
     }
-
     console.log(req.body);
     res.status(201).json({ message: 'Danger has been acknowledge.' })
+};
+
+
+exports.sendEmail = (req, res, next) => {
+    console.log(req.body);
+    transporter.sendMail({
+        to: 'gsamarth14@gmail.com',
+        from: 'deshyashishu2@gmail.com',
+        subject: 'Booking Confirmtaion',
+        html: `
+          <p>Your meeting is booked successfully.</p>
+        `
+    })
+        .then(result => {
+            console.log(result , "////////////");
+            res.status(200).json({ message: 'Email Sent Successfully.' });
+        })
+        .catch(err => {
+            console.log(err);
+            next(err);
+        });
+
+
 }
