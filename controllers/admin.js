@@ -27,12 +27,35 @@ const abc = async () => {
     }
 }
 
-cron.schedule("*/10 * * * * *", function () {
-    console.log("running a task every 2 second");
-    abc();
+// cron.schedule("1 1 14 30 3 ", function () {
+//     console.log("running a task every 2 second");
+//     abc();
+// });
 
 
-});
+exports.sendDatatoServer = () => {
+    const url = "http://127.0.0.1:5000/displaydata";
+    const data = {
+        "user_id": "fsdsadfei2378boifbwuef",
+        "meeting_id": "sfsuliblsiub23buiqeq",
+        "door_id": "dasdakdbdiua2387gbffbsj",
+        "unlockedAt": `${new Date().toISOString()}`,
+        "start_time": `${new Date().toISOString()}`,
+        "end_time": `${new Date().toISOString()}`,
+        "meeting_objective": "Farewell Party for FInal years",
+        "user": {
+            "user_name": "Sarvesh Gupta",
+            "user_email": "sarvesh@gmail.com"
+
+        }
+    };
+    axios.post(url, data).then(result => {
+        console.log(result);
+
+    }).catch(err => {
+        console.log(error);
+    })
+};
 
 exports.postDanger = (req, res, next) => {
     if (!req.body) {
@@ -41,3 +64,15 @@ exports.postDanger = (req, res, next) => {
     console.log(req.body);
     res.status(201).json({ message: 'Danger has been acknowledge.' })
 };
+
+
+//TODO: After meeting finsihes fetch the logs from hardware server.
+exports.fetchLogsFromHardwareServer = (req, res, next) => {
+    axios.get('http://127.0.0.1:5000/getlogs').then(
+        result => {
+            console.log(result);
+        }
+    ).catch(err => {
+        next(err);
+    });
+}

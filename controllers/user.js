@@ -38,25 +38,25 @@ const abc = async () => {
 
 const sendMeetingRoomData = () => {
     while (true) {
-        setTimeout(3000, () => { 
+        setTimeout(3000, () => {
 
         })
     }
 }
 
 exports.unlockDoor = (req, res, next) => {
-    console.log(req.body);
+    console.log(req.body, "////////////////");
     // TODO : Below URL has to be replaced by Arduino Server URL;
-    axios.post('http://192.168.1.6:5000/unlockDoor', {
+    axios.post('http://127.0.0.1:5000/unlockDoor', {
         "user_id": "fsdsadfei2378boifbwuef",
         "meeting_id": "sfsuliblsiub23buiqeq",
         "door_id": "dasdakdbdiua2387gbffbsj",
         "unlockedAt": `${new Date().toISOString()}`,
-        "meeting_objective": "Farewell Party for FInal years",
+        "meeting_objective": "Farewell Party",
         "user": {
-            "user_name": "Sarthak Agarwal",
-            "user_email": "agarwalsarthak456@gmail.com"
-        }
+            "user_name": "Sarvesh Gupta",
+            "user_email": "sarvesh@sarvesh.dev"
+        },
     })
         .then(result => {
             console.log(result.data);
@@ -68,6 +68,30 @@ exports.unlockDoor = (req, res, next) => {
 
 };
 
+
+exports.lockDoor = (req, res, next) => {
+    console.log(req.body, "////////////////");
+    // TODO : Below URL has to be replaced by Arduino Server URL;
+    axios.post('http://127.0.0.1:5000/lockDoor', {
+        "user_id": "fsdsadfei2378boifbwuef",
+        "meeting_id": "sfsuliblsiub23buiqeq",
+        "door_id": "dasdakdbdiua2387gbffbsj",
+        "unlockedAt": `${new Date().toISOString()}`,
+        "meeting_objective": "Farewell Party",
+        "user": {
+            "user_name": "Ramesh Agarwal",
+            "user_email": "rameshagarwal123"
+        },
+    })
+        .then(result => {
+            console.log(result.data);
+            res.status(200).json({ message: 'Door Unlocked!' });
+        })
+        .catch(err => {
+            next(err);
+        });
+
+};
 
 
 
@@ -91,3 +115,5 @@ exports.sendEmail = (req, res, next) => {
         });
 
 }
+
+// _______ORELY________
