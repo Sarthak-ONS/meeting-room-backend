@@ -34,7 +34,7 @@ const abc = async () => {
     } catch (error) {
         console.log(error);
     }
-}
+};
 
 const sendMeetingRoomData = () => {
     while (true) {
@@ -46,13 +46,14 @@ const sendMeetingRoomData = () => {
 
 exports.unlockDoor = (req, res, next) => {
     console.log(req.body, "////////////////");
+
     // TODO : Below URL has to be replaced by Arduino Server URL;
-    axios.post('http://127.0.0.1:5000/unlockDoor', {
+    axios.post(`${process.env.PYTHON_SERVER_LINK}/unlockDoor`, {
         "user_id": "fsdsadfei2378boifbwuef",
         "meeting_id": "sfsuliblsiub23buiqeq",
         "door_id": "dasdakdbdiua2387gbffbsj",
         "unlockedAt": `${new Date().toISOString()}`,
-        "meeting_objective": "Farewell Party",
+        "meeting_objective": "Testing For Presentation",
         "user": {
             "user_name": "Sarvesh Gupta",
             "user_email": "sarvesh@sarvesh.dev"
@@ -68,24 +69,23 @@ exports.unlockDoor = (req, res, next) => {
 
 };
 
-
 exports.lockDoor = (req, res, next) => {
     console.log(req.body, "////////////////");
     // TODO : Below URL has to be replaced by Arduino Server URL;
-    axios.post('http://127.0.0.1:5000/lockDoor', {
+    axios.post(`${process.env.PYTHON_SERVER_LINK}/lockDoor`, {
         "user_id": "fsdsadfei2378boifbwuef",
         "meeting_id": "sfsuliblsiub23buiqeq",
         "door_id": "dasdakdbdiua2387gbffbsj",
         "unlockedAt": `${new Date().toISOString()}`,
-        "meeting_objective": "Farewell Party",
+        "meeting_objective": "Testing For Presentation",
         "user": {
-            "user_name": "Ramesh Agarwal",
-            "user_email": "rameshagarwal123"
+            "user_name": "Sarvesh Gupta",
+            "user_email": "sarvesh@sarvesh.dev"
         },
     })
         .then(result => {
             console.log(result.data);
-            res.status(200).json({ message: 'Door Unlocked!' });
+            res.status(200).json({ message: 'Door Locked!' });
         })
         .catch(err => {
             next(err);
@@ -93,14 +93,12 @@ exports.lockDoor = (req, res, next) => {
 
 };
 
-
-
 exports.sendEmail = (req, res, next) => {
     console.log(req.body);
     transporter.sendMail({
-        to: 'gsamarth14@gmail.com',
+        to: 'prajwaldeep1109@gmail.com',
         from: 'deshyashishu2@gmail.com',
-        subject: 'Booking Confirmtaion',
+        subject: 'Ericssion India PVT LTD',
         html: `
           <p>Your meeting is booked successfully.</p>
         `
@@ -115,5 +113,3 @@ exports.sendEmail = (req, res, next) => {
         });
 
 }
-
-// _______ORELY________
