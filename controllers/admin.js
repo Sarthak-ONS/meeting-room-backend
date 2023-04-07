@@ -27,10 +27,10 @@ const abc = async () => {
   }
 };
 
-// cron.schedule("1 1 14 30 3 ", function () {
-//     console.log("running a task every 2 second");
-//     abc();
-// });
+cron.schedule("1 1 14 30 3 ", function () {
+    console.log("running a task every 2 second");
+    abc();
+});
 
 exports.sendDatatoServer = (req, res, next) => {
   console.log("Sending Data to Server");
